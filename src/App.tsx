@@ -7,6 +7,8 @@ import { useGetForecastQuery } from "./store/weatherApi";
 import { useEffect, useMemo } from "react";
 import { ErrorMsg } from "./components/ErrorMsg/ErrorMsg";
 import { formatDate } from "./utility/formatDate";
+import { daysOfWeek } from "./types/daysOfWeek";
+import cn from "classnames";
 
 function App() {
   const cityQuery = useSelector((state: RootState) => state.city.query);
@@ -52,9 +54,18 @@ function App() {
         <div className="weatherContainer">
           {data?.map((forecast) => {
             const { day, month } = formatDate(forecast.date);
+            const dayOfWeek = daysOfWeek.get(new Date(forecast.date).getDay());
+
             return (
               <div key={forecast.date} className="weatherCard">
-                <h2>{day}</h2>
+                <p>{dayOfWeek}</p>
+                <h2
+                  className={cn("numberOfDay", {
+                    weekend: dayOfWeek === "Saturday" || dayOfWeek === "Sunday",
+                  })}
+                >
+                  {day}
+                </h2>
                 <p>{month}</p>
                 <img src={forecast.icon} alt={forecast.alt} />
                 <div className="tempRange">

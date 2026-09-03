@@ -10,6 +10,7 @@ import { formatDate } from "./utility/formatDate";
 import { daysOfWeek } from "./types/daysOfWeek";
 import cn from "classnames";
 
+
 function App() {
   const cityQuery = useSelector((state: RootState) => state.city.query);
   const cityName = useSelector((state: RootState) => state.city.name);
@@ -17,6 +18,9 @@ function App() {
     skip: !cityQuery,
   });
   const dispatch = useDispatch();
+  const currentCityTemp = data?.[0]?.temperature
+    ? Math.round(data[0].temperature)
+    : 0;
 
   const debouncedCityQuery = useMemo(() => {
     return debounce((city: string) => {
@@ -33,8 +37,17 @@ function App() {
   return (
     <section className="container">
       {!isError && !isLoading && cityName ? (
-        <h1 className="city">
-          in {cityName} now {Math.round(data?.[0]?.temperature || 0)}°C
+        <h1 className="cityTitle">
+          In <span className="city">{cityName}</span> now{" "}
+          <span
+            className={cn({
+              warm: currentCityTemp > 0,
+              cold: currentCityTemp < 0,
+            })}
+          >
+            {currentCityTemp}
+          </span>
+          °C
         </h1>
       ) : (
         <h1>Hello!</h1>
@@ -55,6 +68,8 @@ function App() {
           {data?.map((forecast) => {
             const { day, month } = formatDate(forecast.date);
             const dayOfWeek = daysOfWeek.get(new Date(forecast.date).getDay());
+            const maxTemp = Math.round(forecast.maxTemp);
+            const minTemp = Math.round(forecast.minTemp);
 
             return (
               <div key={forecast.date} className="weatherCard">
@@ -69,8 +84,29 @@ function App() {
                 <p>{month}</p>
                 <img src={forecast.icon} alt={forecast.alt} />
                 <div className="tempRange">
-                  <p>Max: {Math.round(forecast.maxTemp)}°</p>
-                  <p>Min: {Math.round(forecast.minTemp)}°</p>
+                  <div className="tempInfo">
+                    <span>max</span>
+                    <p
+                      className={cn("temp", {
+                        warm: maxTemp > 0,
+                        cold: maxTemp < 0,
+                      })}
+                    >
+                      {maxTemp}°
+                    </p>
+                  </div>
+
+                  <div className="tempInfo">
+                    <span>min</span>
+                    <p
+                      className={cn("temp", {
+                        warm: minTemp > 0,
+                        cold: minTemp < 0,
+                      })}
+                    >
+                      {minTemp}°
+                    </p>
+                  </div>
                 </div>
               </div>
             );

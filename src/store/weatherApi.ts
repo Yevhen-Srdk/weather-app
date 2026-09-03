@@ -11,7 +11,7 @@ export const weatherApi = createApi({
   endpoints: (builder) => ({
     getForecast: builder.query<Forecast, string>({
       query: (city) =>
-        `forecast.json?key=${API_KEY}&q=${city}&days=7&aqi=no&alerts=no`,
+        `forecast.json?key=${API_KEY}&q=${city}&days=3&aqi=no&alerts=no`,
 
       transformResponse: (response: ForecastApiResponse) => {
         return response.forecast.forecastday.map((day) => {

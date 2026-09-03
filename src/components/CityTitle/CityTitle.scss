@@ -1,0 +1,8 @@
+.cityTitle {
+    text-align: center;
+    overflow-wrap: break-word;
+}
+
+.city::first-letter {
+    text-transform: uppercase;
+}

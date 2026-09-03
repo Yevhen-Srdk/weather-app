@@ -1,0 +1,48 @@
+@use '../../styles/mixins.scss' as mixin;
+@use '../../styles/vars.scss' as var;
+
+.weatherCard {
+    @include mixin.flex-center;
+
+    flex-direction: column;
+    gap: 5px;
+    flex-shrink: 0;
+    padding: 10px 10px;
+
+    border: 1px solid var.$gray-color;
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    &:not(:last-child) {
+        border-right: none;
+    }
+}
+
+.tempRange {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.tempInfo {
+    @include mixin.flex-center;
+
+    flex-direction: column;
+}
+
+.warm::before {
+    content: '+';
+}
+
+.cold::before {
+    content: '-';
+}
+
+.numberOfDay {
+    font-weight: 400;
+}
+
+.weekend {
+    color: var.$red-color;
+}

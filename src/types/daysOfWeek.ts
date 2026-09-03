@@ -1,4 +1,4 @@
-export const daysOfWeek = new Map<number, string>([
+export const DaysOfWeek = new Map<number, string>([
     [0, 'Sunday'],
     [1, 'Monday'],
     [2, 'Tuesday'],

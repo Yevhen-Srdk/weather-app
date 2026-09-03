@@ -1,5 +1,5 @@
 import type { FormattedDate } from "../types/FormattedDate";
-import { Months } from "../types/monthsMap";
+import { Months } from "../types/Months";
 
 // date format is year-month-day
 export const formatDate = (date: string): FormattedDate => {

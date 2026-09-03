@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import cityReducer from "./citySlice";
+import cityQueryReducer from "./cityQuerySlice";
 import { weatherApi } from "./weatherApi";
 
 export const store = configureStore({
   reducer: {
-    city: cityReducer,
+    cityQuery: cityQueryReducer,
     [weatherApi.reducerPath]: weatherApi.reducer,
   },
 

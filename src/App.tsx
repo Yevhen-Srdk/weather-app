@@ -6,6 +6,7 @@ import { Search } from "./components/Search/Search";
 import { CityTitle } from "./components/CityTitle/CityTitle";
 import type { RootState } from "./store/store";
 import "./App.scss";
+import { Loader } from "./components/Loader/Loader";
 
 function App() {
   const cityQuery = useSelector((state: RootState) => state.cityQuery);
@@ -21,13 +22,15 @@ function App() {
     <section className="container">
       <CityTitle
         cityName={cityName}
+        cityQuery={cityQuery}
         currentCityTemp={currentCityTemp}
         isError={isError}
         isLoading={isLoading}
       />
       <Search />
       {isError && !isLoading && <ErrorMsg />}
-      {cityName && !isError && !isLoading && <WeatherContainer data={data} />}
+      {isLoading && <Loader />}
+      {cityQuery && !isError && !isLoading && <WeatherContainer data={data} />}
     </section>
   );
 }

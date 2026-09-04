@@ -1,8 +1,10 @@
+import { Loader } from '../Loader/Loader';
 import './CityTitle.scss';
 import cn from "classnames";
 
 type Props = {
   cityName: string;
+  cityQuery: string;
   currentCityTemp: number;
   isLoading: boolean;
   isError: boolean;
@@ -10,13 +12,15 @@ type Props = {
 
 export const CityTitle = ({
   cityName,
+  cityQuery,
   currentCityTemp,
   isLoading,
   isError,
 }: Props) => {
   return (
     <>
-      {!isError && !isLoading && cityName ? (
+    {isLoading && <Loader />}
+      {!isError && !isLoading && cityQuery ? (
         <h1 className="cityTitle">
           In <span className="city">{cityName}</span> now{" "}
           <span

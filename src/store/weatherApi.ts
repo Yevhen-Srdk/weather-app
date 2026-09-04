@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { Forecast } from "../types/Forecast";
 import type { ForecastApiResponse } from "../types/ForecastApiResponse";
 
-const API_KEY = "a760be097d1d45529ad155757262708";
+const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 const BASE_URL = "https://api.weatherapi.com/v1/";
 
 export const weatherApi = createApi({

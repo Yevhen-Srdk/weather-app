@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useGetForecastQuery } from "./store/weatherApi";
 import { ErrorMsg } from "./components/ErrorMsg/ErrorMsg";
 import { WeatherContainer } from "./components/WeatherContainer/WeatherContainer";
@@ -7,6 +7,8 @@ import { CityTitle } from "./components/CityTitle/CityTitle";
 import type { RootState } from "./store/store";
 import "./App.scss";
 import { Loader } from "./components/Loader/Loader";
+import { useEffect } from "react";
+import { setActiveCard } from "./store/activeCardSlice";
 
 function App() {
   const cityQuery = useSelector((state: RootState) => state.cityQuery);
@@ -17,6 +19,13 @@ function App() {
   const currentCityTemp = data?.[0]?.temperature
     ? Math.round(data[0].temperature)
     : 0;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (data) {
+      dispatch(setActiveCard(data[0].date))
+    } 
+  }, [dispatch, data])
 
   return (
     <section className="container">

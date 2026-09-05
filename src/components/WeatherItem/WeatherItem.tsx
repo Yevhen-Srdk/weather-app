@@ -1,12 +1,16 @@
 import cn from "classnames";
-import './WeatherItem.scss';
+import "./WeatherItem.scss";
 import type { Weather } from "../../types/Weather";
 import { formatDate } from "../../utility/formatDate";
 import { DaysOfWeek } from "../../types/DaysOfWeek";
 
+import { useDispatch, useSelector } from "react-redux";
+import { setActiveCard } from "../../store/activeCardSlice";
+import type { RootState } from "../../store/store";
+
 type Props = {
-    forecast: Weather;
-}
+  forecast: Weather;
+};
 
 export const WeatherItem = ({ forecast }: Props) => {
   const { day, month } = formatDate(forecast.date);
@@ -14,8 +18,18 @@ export const WeatherItem = ({ forecast }: Props) => {
   const maxTemp = Math.round(forecast.maxTemp);
   const minTemp = Math.round(forecast.minTemp);
 
+  const activeCard = useSelector((state: RootState) => state.activeCard);
+  const dispatch = useDispatch();
+
+  const handleCardClick = () => {
+    dispatch(setActiveCard(forecast.date));
+  };
+
   return (
-    <div key={forecast.date} className="weatherCard">
+    <div
+      className={cn("weatherCard", { active: activeCard === forecast.date })}
+      onClick={handleCardClick}
+    >
       <p>{dayOfWeek}</p>
       <h2
         className={cn("numberOfDay", {

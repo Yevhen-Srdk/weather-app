@@ -1,5 +1,6 @@
 @use '../../styles/mixins.scss' as mixin;
 @use '../../styles/vars.scss' as var;
+@use '../../styles/utilities';
 
 .weatherCard {
     @include mixin.flex-center;
@@ -7,10 +8,14 @@
     flex-direction: column;
     gap: 5px;
     flex-shrink: 0;
-    padding: 10px 10px;
+    padding: 10px;
+    width: var.$card-width;
 
     border: 1px solid var.$gray-color;
+    border-bottom: none;
     border-radius: 10px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 
     cursor: pointer;
 
@@ -31,18 +36,21 @@
     flex-direction: column;
 }
 
-.warm::before {
-    content: '+';
-}
-
-.cold::before {
-    content: '-';
-}
-
 .numberOfDay {
     font-weight: 400;
 }
 
 .weekend {
     color: var.$red-color;
+}
+
+.active {
+    @include mixin.shadow;
+
+    transform: scaleY(1.02);
+    transition: all ease .5s;
+    transform-origin: bottom center;
+    background-color: var.$white-color;
+    clip-path: inset(-20px -20px 0 -20px);
+    z-index: 2;
 }

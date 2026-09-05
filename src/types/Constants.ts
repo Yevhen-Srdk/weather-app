@@ -1,0 +1,1 @@
+export const NUMBER_OF_FORECAST_DAY = 3;

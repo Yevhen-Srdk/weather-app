@@ -1,0 +1,15 @@
+.warm::before {
+    content: '+';
+}
+
+.cold::before {
+    content: '-';
+}
+
+.smallTxt {
+    font-size: 12px;
+}
+
+.boldTxt {
+    font-weight: 600;
+}

@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import "./AdditionalInfo.scss";
 import cn from "classnames";
 
@@ -26,6 +27,29 @@ type Props = {
 
 export const AdditionalInfo = ({ hours, localTime }: Props) => {
   const time = localTime?.slice(-5); // time template is like "year-month-day 00:00",
+  const timeRef = useRef<HTMLDivElement>(null);
+  const infoDiv = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!infoDiv.current) {
+      return;
+    }
+
+    if (!timeRef.current) {
+      infoDiv.current.scrollTo({
+        left: 0,
+        behavior: "smooth",
+      });
+
+      return;
+    }
+
+    timeRef.current.scrollIntoView({
+      behavior: "smooth",
+      inline: "start",
+      block: "nearest",
+    });
+  }, [time, hours]);
 
   return (
     <section className="additionalInfo">
@@ -44,16 +68,28 @@ export const AdditionalInfo = ({ hours, localTime }: Props) => {
         <p className={cn("smallTxt boldTxt")}>Chance of snow</p>
       </div>
 
-      <div className="info">
+      <div className="info" ref={infoDiv}>
         {hours?.map((hour) => {
           const windSpeed = Math.round(hour.wind_kph);
           const hourTemp = Math.round(hour.temp_c);
           const feelsLike = Math.round(hour.feelslike_c);
-          const hourTime = hour.time.slice(-5); // time template is like "year-month-day 00:00",
+          const hourTime = hour.time.slice(-5); // time template is like "year-month-day 00:00"
+          const isCurrentTime =
+            hour.time.slice(0, 13) === localTime?.slice(0, 13);
 
           return (
-            <div className="card" key={hour.time}>
-              <p className={cn("smallTxt boldTxt")}>{hourTime}</p>
+            <div
+              ref={isCurrentTime ? timeRef : null}
+              className={cn("card", { activeCard: isCurrentTime })}
+              key={hour.time}
+            >
+              <p
+                className={cn("smallTxt boldTxt", {
+                  activeTime: isCurrentTime,
+                })}
+              >
+                {hourTime}
+              </p>
               <img
                 className="cardImg"
                 src={hour.condition.icon}

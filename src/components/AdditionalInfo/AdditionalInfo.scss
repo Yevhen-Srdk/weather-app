@@ -51,6 +51,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 0 5px;
 
     &Body {
         display: flex;
@@ -72,3 +73,17 @@
     height: 40px;
 }
 
+.activeCard {
+    background-color: #eff6fc;
+    border-radius: 5px;
+}
+
+.activeTime {
+    align-self: stretch;
+    margin: 0 -5px;
+    padding: 0 5px;
+    color: var.$white-color;
+    background-color: #429cdd;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}

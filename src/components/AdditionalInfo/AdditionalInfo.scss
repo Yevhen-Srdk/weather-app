@@ -74,7 +74,7 @@
 }
 
 .activeCard {
-    background-color: #eff6fc;
+    background-color: var.$light-blue-color;
     border-radius: 5px;
 }
 
@@ -83,7 +83,7 @@
     margin: 0 -5px;
     padding: 0 5px;
     color: var.$white-color;
-    background-color: #429cdd;
+    background-color: var.$blue-color;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
